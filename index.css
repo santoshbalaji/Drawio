@@ -1,0 +1,30 @@
+.container-fluid
+{
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  margin-left:20px;
+  margin-top:20px;
+}
+#draw
+{
+  cursor:pointer;
+}
+.colorpallets
+{
+  width:30px;
+  height:30px;
+  border-style:solid;
+  border-color:#000000;
+  border-width:1px;
+}
+.selectedpallete
+{
+  width:70px;
+  height:100px;
+  border-style:solid;
+  border-color:#000000;
+  border-width:1px;
+}
