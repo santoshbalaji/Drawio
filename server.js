@@ -2,8 +2,9 @@ var express = require("express");
 var app = express();
 var server = require("http").createServer(app);
 var io = require("socket.io")(server);
-var room = new Array();
-var roomcount = 0;
+var members = new Array();
+var membername = new Array();
+var membercount = 0;
 var ipaddress = process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1";
 var port      = process.env.OPENSHIFT_NODEJS_PORT || 8080;
 
@@ -18,29 +19,38 @@ io.on("connection",function(client)
 {
   client.on("join",function(data)
   {
-    room[roomcount] = client;
-    roomcount++;
+    members[membercount] = client;
+    membername[membercount] = data;
+    membercount++;
+    for(var i =0 ;i <members.length;i++)
+    {
+      members[i].emit("message",membername);
+    }
   });
   client.on("messages",function(data)
   {
-    for(var i =0 ;i <room.length;i++)
+    for(var i =0 ;i <members.length;i++)
     {
-      if(room[i].id !== client.id)
+      if(members[i].id !== client.id)
       {
-        console.log("inside "+i);
-        room[i].emit("message",data);
+        members[i].emit("message",data);
       }
     }
   });
   client.on("disconnect",function(data)
   {
-    for(var i =0;i<room.length;i++)
+    for(var i =0;i<members.length;i++)
     {
-      if(room[i].id ===  client.id )
+      if(members[i].id ===  client.id )
       {
-        roomcount--;
-        room.splice(i,1);
+        membercount--;
+        members.splice(i,1);
+        membername.splice(i,1);
       }
+    }
+    for(var i =0 ;i <members.length;i++)
+    {
+      members[i].emit("message",membername);
     }
   });
 });

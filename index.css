@@ -8,9 +8,29 @@
   margin-left:20px;
   margin-top:20px;
 }
+.userdetails-panel
+{
+  margin-top:150px;
+}
+.panel
+{
+  box-shadow: 7px 7px 5px #888888;
+}
+.painting-panel
+{
+  display:none;
+}
 #draw
 {
   cursor:pointer;
+  box-shadow: 7px 7px 5px #888888;
+  border:1px solid;
+  border-color:#A4C639;
+}
+#colorpanel
+{
+  margin-top:20px;
+  cursor:pointer
 }
 .colorpallets
 {
